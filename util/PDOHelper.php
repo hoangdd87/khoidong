@@ -24,32 +24,42 @@ class PDOHelper
     }
 
     /**
-     * @param string $username
-     * @param string $password
-     * @return User
+     * @return TuKhoa[]
      */
-    public function get_User_by_username_and_pass($username, $password)
+    public function get_All_TuKhoa()
     {
-        include_once __DIR__ . '/../model/User.php';
-        $sth = $this->PDO->prepare("SELECT user_name, password, role FROM users 
-                          WHERE user_name=:user_name AND password=:password");
-        $sth->bindParam(':user_name', $username);
-        $sth->bindParam(':password', $password);
+        include_once __DIR__ . '/../model/TuKhoa.php';
+        $sth=$this->PDO->prepare("SELECT * FROM dstukhoa WHERE 1");
         $sth->execute();
-        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
-        return $sth->fetch();
+        return $sth->fetchAll(PDO::FETCH_CLASS, "TuKhoa");
     }
 
     /**
      * @return GoiCauHoi[]
      */
-    public function get_All_GoiCauHoi()
-    {
+    public function get_All_GoiCauHoi(){
         include_once __DIR__ . '/../model/GoiCauHoi.php';
-        $sth=$this->PDO->prepare("SELECT * FROM goicauhoi WHERE 1");
+        $sth=$this->PDO->prepare("SELECT * FROM dsgoicauhoi WHERE 1");
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_CLASS, "GoiCauHoi");
+
     }
+
+    public function update_GoiCauHoi_TrangThai($magoi,$trangthai){
+        $sth=$this->PDO->prepare("UPDATE dsgoicauhoi SET trangthai=:trangthai WHERE magoi=:magoi");
+        $sth->bindParam(':magoi',$magoi);
+        $sth->bindParam(':trangthai',$trangthai);
+        return $sth->execute();
+
+    }
+
+    public function reset_GoiCauHoi_TrangThai(){
+        $sth=$this->PDO->prepare("UPDATE dsgoicauhoi SET trangthai=0 WHERE 1");
+
+        return $sth->execute();
+
+    }
+
 
 }
 

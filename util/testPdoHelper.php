@@ -7,6 +7,6 @@
  */
 include_once __DIR__ . '/PDOHelper.php';
 $pdoHelper=new PDOHelper();
-$goicauhoi=$pdoHelper->get_All_GoiCauHoi();
-print_r($goicauhoi);
+$tukhoa=$pdoHelper->get_All_GoiCauHoi();
+print_r($tukhoa);
 ?>

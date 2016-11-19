@@ -8,11 +8,10 @@
  */
 class GoiCauHoi
 {
-    public $matukhoa;
-    public $magoicauhoi;
-    public $ndtukhoa;
-    public $hinhanh;
-    public $id;
+    public $magoi;
+    public $trangthai;
+    public static $AVAILABLE_CODE=0;
+    public static $DISABLE_CODE=1;
 }
 
 ?>
