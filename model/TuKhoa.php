@@ -9,10 +9,12 @@
 class TuKhoa
 {
     public $matukhoa;
-    public $magoicauhoi;
+    public $magoi;
     public $ndtukhoa;
     public $hinhanh;
     public $id;
 }
 
 ?>
+
+

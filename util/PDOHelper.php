@@ -45,6 +45,9 @@ class PDOHelper
 
     }
 
+    /**
+     * @return boolean
+     */
     public function update_GoiCauHoi_TrangThai($magoi,$trangthai){
         $sth=$this->PDO->prepare("UPDATE dsgoicauhoi SET trangthai=:trangthai WHERE magoi=:magoi");
         $sth->bindParam(':magoi',$magoi);
@@ -53,6 +56,9 @@ class PDOHelper
 
     }
 
+    /*
+     * @return boolean
+     */
     public function reset_GoiCauHoi_TrangThai(){
         $sth=$this->PDO->prepare("UPDATE dsgoicauhoi SET trangthai=0 WHERE 1");
 
@@ -60,6 +66,17 @@ class PDOHelper
 
     }
 
+    /**
+     * @return TuKhoa[]
+     */
+    public function get_All_TuKhoa_By_MaGoi($magoi)
+    {
+        include_once __DIR__ . '/../model/TuKhoa.php';
+        $sth=$this->PDO->prepare("SELECT * FROM dstukhoa WHERE magoi=:magoi");
+        $sth->bindParam(':magoi',$magoi);
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_CLASS, "TuKhoa");
+    }
 
 }
 
