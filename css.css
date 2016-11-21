@@ -224,11 +224,41 @@ body {
     cursor: pointer;
 }
 
-.container > .row_user_answer > .buttonYes:hover {
+.container > .buttonYes:hover {
 
     background-color: #457e0a;
     text-decoration: none;
 }
+
+.container > .buttonNumber {
+    position: absolute;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    left: 0px;
+    bottom: 0px;
+    background-color: #b54b0e;
+    color: #fff9ff;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-size: 40px;
+    font-weight: 600;
+    text-decoration: none;
+    /*Text Shadow*/
+    border: none;
+    cursor: pointer;
+}
+
+.container > .buttonNumber:hover {
+
+    background-color: #7e0022;
+    text-decoration: none;
+}
+
 
 .container > .buttonNo {
     position: absolute;
@@ -258,7 +288,7 @@ body {
     background-color: #ff0019;
     text-decoration: none;
 }
- 
+
 .container > .mypicture {
     position: absolute;
     bottom: 250px;
@@ -273,7 +303,8 @@ body {
     bottom:0;
     width: 100%;
     height: 100%;
-    background-color: #49ff18;
+    background-color: white;
+    border: transparent;
 }
 
 
