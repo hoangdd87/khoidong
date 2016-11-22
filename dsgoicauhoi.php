@@ -44,6 +44,6 @@ $dsgoicauhoi = $pdoHelper->get_All_GoiCauHoi();
 
 <script>
     function reset() {
-        $.get("http://localhost:1500/khoidong/apis/reset_goicauhoi_trangthai.php");
+        $.get("http://localhost/khoidong/apis/reset_goicauhoi_trangthai.php");
     }
 </script>
