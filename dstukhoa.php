@@ -9,7 +9,9 @@ $magoi = isset($_GET['magoi']) ? $_GET['magoi'] : 1;
 $pdoHelper = new PDOHelper();
 $dstukhoa = $pdoHelper->get_All_TuKhoa_By_MaGoi($magoi);
 $tukhoa1 = $dstukhoa[0];
-$THOIGIAN = 180;
+$THOIGIAN = 60;
+
+$pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
 
 ?>
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ $THOIGIAN = 180;
             0
         </div>
         <div id="question_text_area_id" class="question_text_area" style="color: transparent">
-            <?= $tukhoa1->ndtukhoa ?>
+            <span id="question_text_area_id_span" class="myspan"><?= $tukhoa1->ndtukhoa ?></span>
         </div>
         <div id='question_countdown_clock_area' class="question_countdown_clock_area">
             <?= $THOIGIAN ?>
@@ -50,7 +52,7 @@ $THOIGIAN = 180;
     <button class="buttonYes" onclick="buttonYesClick()">
         Đ
     </button>
-    <button id="socau" style="visibility: hidden" class="buttonNumber" onclick="buttonNoClick() ">
+    <button id="socau" style="visibility: hidden" class="buttonNumber" onclick="buttonPointClick() ">
         1/12
     </button>
     <button class="buttonNo" onclick="buttonNoClick()">
@@ -64,6 +66,7 @@ $THOIGIAN = 180;
     <audio id="audio" src="sounds/60s.mp4"></audio>
     <audio id="dung" src="sounds/dung.wav"></audio>
     <audio id="sai" src="sounds/sai.wav"></audio>
+    <audio id="chucmung" src="sounds/chucmung.wav"></audio>
 </div>
 
 <script>
@@ -85,15 +88,15 @@ $THOIGIAN = 180;
         //hide button 30s
         document.getElementById("button120s").style.display = 'none';
         //Play music sound
-        document.getElementById('hinhanhtukhoa').style.visibility = 'visible'
-        document.getElementById('socau').style.visibility = 'visible'
+        document.getElementById('hinhanhtukhoa').style.visibility = 'visible';
+        document.getElementById('socau').style.visibility = 'visible';
         sound.play();
         function updateClock() {
             t = t - 1;
             if (sound.currentTime >= 60) {
-                sound.pause()
-                sound.currentTime = 0
-                sound.play()
+                sound.pause();
+                sound.currentTime = 0;
+                sound.play();
             }
             document.getElementById("question_countdown_clock_area").innerHTML = t;
             if ((t <= 0)||(dem>=dstukhoa.length)) {
@@ -108,8 +111,15 @@ $THOIGIAN = 180;
     function chieuTuKhoaKeTiep() {
         dem = dem + 1;
         socau+=1;
+
         if (dem < dstukhoa.length) {
-            document.getElementById('question_text_area_id').innerHTML = dstukhoa[dem]['ndtukhoa'];
+            tukhoatemp=dstukhoa[dem]['ndtukhoa'];
+            n=tukhoatemp.length;
+            font_size=(n<=40?60:Math.round(40*40/n*2));
+            font_size= font_size<20?30:font_size;
+            font_size_str=font_size+"px";
+            document.getElementById('question_text_area_id').style.fontSize = font_size_str;
+            document.getElementById('question_text_area_id_span').innerHTML = dstukhoa[dem]['ndtukhoa'];
             document.getElementById('hinhanhtukhoa').src = "pictures/" + dstukhoa[dem]['hinhanh'];
             document.getElementById('socau').innerHTML = socau + "/12";
         }
@@ -127,6 +137,11 @@ $THOIGIAN = 180;
             sound.pause();
             //clearInterval()
         }
+    }
+
+    function buttonPointClick() {
+        var soundchucmung=document.getElementById("chucmung");
+        soundchucmung.play();
     }
 
     function buttonNoClick() {

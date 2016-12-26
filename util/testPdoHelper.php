@@ -7,8 +7,11 @@
  */
 include_once __DIR__ . '/PDOHelper.php';
 $pdoHelper=new PDOHelper();
-$tukhoa=$pdoHelper->get_All_TuKhoa_By_MaGoi(1);
 
+$dsgoicauhoi = $pdoHelper->get_All_GoiCauHoi();
+foreach ($dsgoicauhoi as $goiCauHoi):
+print_r($goiCauHoi);
+endforeach;
 ?>
 
 <body>

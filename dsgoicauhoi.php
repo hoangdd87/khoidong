@@ -17,6 +17,7 @@ include_once __DIR__ . '/util/PDOHelper.php';
 include_once __DIR__ . '/resource/Colors.php';
 $pdoHelper = new PDOHelper();
 $dsgoicauhoi = $pdoHelper->get_All_GoiCauHoi();
+
 ?>
 <head>
     <script src="jquery-3.1.1.min.js"></script>
@@ -32,12 +33,12 @@ $dsgoicauhoi = $pdoHelper->get_All_GoiCauHoi();
 </div>
 <div class="container">
     <div class="ochunhatchinh">
-        <? foreach ($dsgoicauhoi as $goiCauHoi): ?>
-            <a class="oGoiCauHoi" href="dstukhoa.php"
+        <?php foreach ($dsgoicauhoi as $goiCauHoi): ?>
+            <a class="oGoiCauHoi" href="dstukhoa.php?magoi=<?=$goiCauHoi->magoi?>"
                style="text-decoration:none; background-color: <?= Colors::getBackGroundColorGoiCauHoi($goiCauHoi->trangthai) ?>">
                 <?= $goiCauHoi->magoi ?>
             </a>
-        <? endforeach; ?>
+        <?php endforeach; ?>
     </div>
 </div>
 </body>
