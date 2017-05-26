@@ -34,7 +34,7 @@ $dsgoicauhoi = $pdoHelper->get_All_GoiCauHoi();
 <div class="container">
     <div class="ochunhatchinh">
         <?php foreach ($dsgoicauhoi as $goiCauHoi): ?>
-            <a class="oGoiCauHoi" href="dstukhoa.php?magoi=<?=$goiCauHoi->magoi?>"
+            <a class="oGoiCauHoi" href="dscauhoi.html?magoi=<?=$goiCauHoi->magoi?>"
                style="text-decoration:none; background-color: <?= Colors::getBackGroundColorGoiCauHoi($goiCauHoi->trangthai) ?>">
                 <?= $goiCauHoi->magoi ?>
             </a>

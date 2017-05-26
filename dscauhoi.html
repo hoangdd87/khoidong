@@ -1,28 +1,67 @@
-<?php
+<script>
+    var magoi = 0;
+    var t = 60;//Time for this question
+    var point = 0;
+    var socau = 1;
+    var dem = 0;
+    var dstukhoa=[];
+    (function () {//Xác định mã gói va ds tu khoa
+        var queryDict = {}
+        location.search.substr(1).split("&").forEach(function (item) {
+            queryDict[item.split("=")[0]] = item.split("=")[1]
+        });
+        magoi = queryDict['magoi'];
 
-//Prepare to show all quuestions
-include_once __DIR__ . '/util/PDOHelper.php';
-include_once __DIR__ . '/resource/Colors.php';
+        var dstatcatukhoa =
+                [
+                    [
+                        {
+                            "matukhoa": 1,
+                            "magoi": 1,
+                            "ndtukhoa": "Trận đấu cuối cùng của tuyển U20 Việt Nam tại vòng bảng là trận nào?"
+                        },
+                        {
+                            "matukhoa": 2,
+                            "magoi": 1,
+                            "ndtukhoa": "Số nguyên tố nhỏ nhất có 3 chữ số?"
+                        },
+                        {
+                            "matukhoa": 3,
+                            "magoi": 1,
+                            "ndtukhoa": "Ai là người có công Phá Tống,bình chiêm?"
+                        }
+                    ],
 
 
-$magoi = isset($_GET['magoi']) ? $_GET['magoi'] : 1;
-$pdoHelper = new PDOHelper();
-$dstukhoa = $pdoHelper->get_All_TuKhoa_By_MaGoi($magoi);
-$tukhoa1 = $dstukhoa[0];
-$THOIGIAN = 60;
+                    [
+                        {
+                            "matukhoa": 1,
+                            "magoi": 1,
+                            "ndtukhoa": "Trận đấu cuối cùng của tuyển U20 Việt Nam tại vòng bảng là trận nào?"
+                        },
+                        {
+                            "matukhoa": 2,
+                            "magoi": 1,
+                            "ndtukhoa": "Số nguyên tố nhỏ nhất có 3 chữ số?"
+                        },
+                        {
+                            "matukhoa": 3,
+                            "magoi": 1,
+                            "ndtukhoa": "Ai là người có công Phá Tống,bình chiêm"
+                        }
+                    ],
+                ];
+        dstukhoa=dstatcatukhoa[magoi];
+    })();
+</script>
 
-$pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
-
-?>
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
     <script src="jquery-3.1.1.min.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css.css">
-    <title>Gói từ khóa <?= $magoi ?></title>
+    <title></title>
 </head>
 
 <body>
@@ -40,10 +79,10 @@ $pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
             0
         </div>
         <div id="question_text_area_id" class="question_text_area" style="color: transparent">
-            <span id="question_text_area_id_span" class="myspan"><?= $tukhoa1->ndtukhoa ?></span>
+            <span id="question_text_area_id_span" class="myspan"></span>
         </div>
         <div id='question_countdown_clock_area' class="question_countdown_clock_area">
-            <?= $THOIGIAN ?>
+
         </div>
     </div>
 
@@ -59,7 +98,7 @@ $pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
         S
     </button>
     <div class="mypicture">
-        <img id='hinhanhtukhoa' class='imgclass' src="pictures/<?= $tukhoa1->hinhanh ?>" alt=""
+        <img id='hinhanhtukhoa' class='imgclass' src="" alt=""
              style="visibility: hidden">
     </div>
 
@@ -70,16 +109,19 @@ $pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
 </div>
 
 <script>
-    var t = <?=$THOIGIAN?>;//Time for this question
-    var point = 0;
-    var socau=1;
-    var dem = 0;
-    var dstukhoa =<?=json_encode($dstukhoa)?>;
-    var sound = document.getElementById("audio");
+    (function () {
+     //Khoi tao cac gia tri mac dinh cho HTML
+        $("title").html("Goi cau hoi"+magoi);
+        $(".question_countdown_clock_area").html(""+t);
+
+
+    })()
+
 </script>
 
 </body>
 <script>
+    var sound = document.getElementById("audio");
 
     var _question_Text_Color = 'white';
 
@@ -99,7 +141,7 @@ $pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
                 sound.play();
             }
             document.getElementById("question_countdown_clock_area").innerHTML = t;
-            if ((t <= 0)||(dem>=dstukhoa.length)) {
+            if ((t <= 0) || (dem >= dstukhoa.length)) {
                 sound.pause();
                 clearInterval(timeinterval);
             }
@@ -110,14 +152,14 @@ $pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
 
     function chieuTuKhoaKeTiep() {
         dem = dem + 1;
-        socau+=1;
+        socau += 1;
 
         if (dem < dstukhoa.length) {
-            tukhoatemp=dstukhoa[dem]['ndtukhoa'];
-            n=tukhoatemp.length;
-            font_size=(n<=40?60:Math.round(40*40/n*2));
-            font_size= font_size<20?30:font_size;
-            font_size_str=font_size+"px";
+            tukhoatemp = dstukhoa[dem]['ndtukhoa'];
+            n = tukhoatemp.length;
+            font_size = (n <= 40 ? 60 : Math.round(40 * 40 / n * 2));
+            font_size = font_size < 20 ? 30 : font_size;
+            font_size_str = font_size + "px";
             document.getElementById('question_text_area_id').style.fontSize = font_size_str;
             document.getElementById('question_text_area_id_span').innerHTML = dstukhoa[dem]['ndtukhoa'];
             document.getElementById('hinhanhtukhoa').src = "pictures/" + dstukhoa[dem]['hinhanh'];
@@ -133,14 +175,14 @@ $pdoHelper->update_GoiCauHoi_TrangThai($magoi,1);
             var sounddung = document.getElementById("dung");
             sounddung.play();
         }
-        else{
+        else {
             sound.pause();
             //clearInterval()
         }
     }
 
     function buttonPointClick() {
-        var soundchucmung=document.getElementById("chucmung");
+        var soundchucmung = document.getElementById("chucmung");
         soundchucmung.play();
     }
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start</title>
+</head>
+<body>
+    <button onclick="startGame()">
+        Click here to start
+    </button>
+</body>
+</html>
+<script>
+    function startGame() {
+        var dsgoicauhoichuan = [
+            {
+                "sogoi": "1",
+                "trangthai": "0"
+            },
+            {
+                "sogoi": "2",
+                "trangthai": "0"
+            },
+            {
+                "sogoi": "3",
+                "trangthai": "0"
+            },
+            {
+                "sogoi": "4",
+                "trangthai": "0"
+            }
+        ];
+        var DSGOICAUHOIKEY = "dsgoicauhoi";
+        localStorage.setItem(DSGOICAUHOIKEY, JSON.stringify(dsgoicauhoichuan));
+        window.location.href="dsgoicauhoi.html"
+
+    }
+</script>

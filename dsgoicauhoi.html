@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <title>Các gói câu hỏi</title>
+</head>
+
+<script>
+    var DSGOICAUHOIKEY = "dsgoicauhoi";
+</script>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <title>Danh sách các gói ?></title>
+</head>
+<body>
+<div class="divbuttonReset">
+    <button class="buttonReset" onclick="reset()">
+        Reset
+    </button>
+</div>
+
+<div class="container">
+    <div class="ochunhatchinh">
+        <a class="oGoiCauHoi" onclick="clickme(0)" id="0" href="dscauhoi.html?magoi=0" style="text-decoration:none; background-color: white">
+            1
+        </a>
+
+        <a class="oGoiCauHoi" onclick="clickme(1)" href="dscauhoi.html?magoi=1" id="1" style="text-decoration:none; background-color: white">
+            2
+        </a>
+
+        <a class="oGoiCauHoi" onclick="clickme(2)" href="dscauhoi.html?magoi=2" id="2" style="text-decoration:none; background-color: white">
+            3
+        </a>
+
+        <a class="oGoiCauHoi" onclick="clickme(3)" href="dscauhoi.html?magoi=3" id="3" style="text-decoration:none; background-color: white">
+            4
+        </a>
+    </div>
+</div>
+</body>
+
+<script>
+    function reset() {
+        var dsgoicauhoichuan = [
+            {
+                "sogoi": "1",
+                "trangthai": "0"
+            },
+            {
+                "sogoi": "2",
+                "trangthai": "0"
+            },
+            {
+                "sogoi": "3",
+                "trangthai": "0"
+            },
+            {
+                "sogoi": "4",
+                "trangthai": "0"
+            }
+        ];
+        localStorage.setItem(DSGOICAUHOIKEY, JSON.stringify(dsgoicauhoichuan));
+        dsgoicauhoi=dsgoicauhoichuan;
+    }
+    //Neu chua co du lieu thi them vao
+    if (localStorage.getItem(DSGOICAUHOIKEY) === null) {
+        reset();
+    }
+
+    //Lay du lieu ve cac goi cau hoi tu localstorage
+    var dsgoicauhoi = JSON.parse(localStorage.getItem(DSGOICAUHOIKEY));
+    for (i = 0; i < dsgoicauhoi.length; i++) {
+        document.getElementById(i).style.backgroundColor = (dsgoicauhoi[i].trangthai==1?"grey":"white");
+    }
+</script>
+
+<script>
+
+    function clickme(magoi) {
+
+        (dsgoicauhoi[magoi]).trangthai=1;
+        localStorage.setItem(DSGOICAUHOIKEY, JSON.stringify(dsgoicauhoi));
+
+    }
+</script>
+
+
+
